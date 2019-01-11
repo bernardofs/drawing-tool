@@ -24,6 +24,25 @@ public class AddParticipants extends Screen implements Serializable {
     private PartListAdapter adapter;
     private int type, randomnessParam, numberOfTeams;
 
+    void updateElementFromDialog(int index, String prevName, int prevProb, int prevSkill) {
+        final EditText writeName = (EditText) dialog.findViewById(R.id.writeName);
+        final EditText writeProb = (EditText) dialog.findViewById(R.id.writeProb);
+        String name = prevName;
+        int prob = prevProb;
+        int skill = prevSkill;
+        name = writeName.getText().toString();
+        String value;
+        value = writeProb.getText().toString();
+        if(type == 11) {
+            prob = Integer.parseInt(value);
+        }
+        else if(type == 12) {
+            skill = Integer.parseInt(value);
+        }
+        table.set(index, new Participant(name, prob, skill));
+        adapter.notifyDataSetChanged();
+    }
+
     void addElementFromDialog(String prevName, int prevProb, int prevSkill) {
         final EditText writeName = (EditText) dialog.findViewById(R.id.writeName);
         final EditText writeProb = (EditText) dialog.findViewById(R.id.writeProb);
@@ -97,7 +116,8 @@ public class AddParticipants extends Screen implements Serializable {
         butAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addElementFromDialog(oldName, Integer.parseInt(oldProb), Integer.parseInt(oldSkill));
+
+                updateElementFromDialog(index, oldName, Integer.parseInt(oldProb), Integer.parseInt(oldSkill));
                 dialog.dismiss();
             }
         });
