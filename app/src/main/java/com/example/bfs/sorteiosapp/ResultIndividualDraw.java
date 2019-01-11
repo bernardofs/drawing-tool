@@ -14,6 +14,7 @@ import java.util.Random;
 public class ResultIndividualDraw extends Screen implements Serializable {
 
     private ArrayList<Participant> table;
+    private int type;
 
     void getTableFromAddPart() {
 
@@ -29,7 +30,7 @@ public class ResultIndividualDraw extends Screen implements Serializable {
         return 1 + x.nextInt(max);
     }
 
-    // Funcition to build a prefix sum array of probabilities
+    // Function to build a prefix sum array of probabilities
     ArrayList<Integer> makePrefixSumOfProb() {
 
         table.add(0, new Participant("", 0, 0));
@@ -79,6 +80,21 @@ public class ResultIndividualDraw extends Screen implements Serializable {
         tv.setText(table.get(choose).getName());
     }
 
+    void getFromLastActivity() {
+        this.type = getIntVarFromLastActivity("type");
+    }
+
+    int chooseElement() {
+
+        if(type == 1) {
+            return rand(table.size()) - 1;
+        } else if(type == 11) {
+            return performDraw();
+        }
+
+        return -1;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -87,9 +103,10 @@ public class ResultIndividualDraw extends Screen implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_draw);
 
+        getFromLastActivity();
         getTableFromAddPart();
 
-        int choose = performDraw();
+        int choose = chooseElement();
 
         displayDraw(choose);
 

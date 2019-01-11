@@ -72,23 +72,23 @@ public class AddParticipants extends Screen implements Serializable {
         butAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog = new Dialog(AddParticipants.this);
-                dialog.setTitle("Save Your Name");
-                dialog.setContentView(R.layout.dialog_template);
+            dialog = new Dialog(AddParticipants.this);
+            dialog.setTitle("Save Your Name");
+            dialog.setContentView(R.layout.dialog_template);
 
-                TextView message = (TextView) dialog.findViewById(R.id.message);
-                Button addData = (Button) dialog.findViewById(R.id.butAdd);
-                Button butRem = (Button) dialog.findViewById(R.id.butRemove);
-                butRem.setVisibility(View.GONE);
+            TextView message = (TextView) dialog.findViewById(R.id.message);
+            Button addData = (Button) dialog.findViewById(R.id.butAdd);
+            Button butRem = (Button) dialog.findViewById(R.id.butRemove);
+            butRem.setVisibility(View.GONE);
 
-                addData.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addElementFromDialog("", -1, -1);
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
+            addData.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addElementFromDialog("", -1, -1);
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
             }
         });
     }
@@ -154,9 +154,10 @@ public class AddParticipants extends Screen implements Serializable {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                if(type == 11)
+                if(type == 1 || type == 11) {
                     intent = new Intent(AddParticipants.this, ResultIndividualDraw.class);
-                else {
+                    intent.putExtra("type", type);
+                } else {
                     if(type == 2) {
                         intent = new Intent(AddParticipants.this, ResultMultipleDraw.class);
                         intent.putExtra("type", 2);
@@ -185,7 +186,7 @@ public class AddParticipants extends Screen implements Serializable {
 
                 Participant aux = table.get(position);
 
-                if(type == 11)
+                if(type == 1 || type == 11)
                     actionUpdateParticipant(aux.getName(), Integer.toString(aux.getProb()), Integer.toString(aux.getSkill()), position);
                 else if(type == 2 || type == 12)
                     actionUpdateParticipant(aux.getName(), Integer.toString(aux.getProb()), Integer.toString(aux.getSkill()), position);

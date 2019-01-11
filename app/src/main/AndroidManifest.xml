@@ -21,7 +21,8 @@
         <activity android:name=".MultipleTeams" />
         <activity android:name=".Screen" />
         <activity android:name=".ResultMultipleDraw" />
-        <activity android:name=".OptionsMultipleDraw"></activity>
+        <activity android:name=".OptionsMultipleDraw" />
+        <activity android:name=".IndividualDrawChooseType"></activity>
     </application>
 
 </manifest>

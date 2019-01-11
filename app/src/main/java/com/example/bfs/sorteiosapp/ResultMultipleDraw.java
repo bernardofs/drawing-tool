@@ -41,7 +41,7 @@ public class ResultMultipleDraw extends Screen {
         } else if(randomnessParam <= 14) {
             teams = generateBestSolution(table.size(), numberOfTeams, table, (randomnessParam - 5)*3);
         } else {
-            teams = generateBestSolution(table.size(), numberOfTeams, table, 100);
+            teams = generateBestSolution(table.size(), numberOfTeams, table, 1000);
         }
 
     }
@@ -123,9 +123,9 @@ public class ResultMultipleDraw extends Screen {
         return best;
     }
 
-    int rand(int max) {
+    int rand(int mod) {
         Random x = new Random();
-        return x.nextInt(max);
+        return x.nextInt(mod);
     }
 
     ArrayList<ArrayList<Participant>> generateBestSolution(int nPeople, int nTeams, ArrayList<Participant> arr, int iter) {

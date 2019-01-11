@@ -15,7 +15,7 @@ public class TelaInicial extends Screen {
         butInd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(TelaInicial.this, AddParticipants.class);
+                Intent myIntent = new Intent(TelaInicial.this, IndividualDrawChooseType.class);
                 myIntent.putExtra("type", 11);
                 startActivity(myIntent);
             }
