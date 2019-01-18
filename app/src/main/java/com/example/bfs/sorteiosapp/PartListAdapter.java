@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +21,13 @@ public class PartListAdapter extends ArrayAdapter<Participant> {
         cont = context;
         res = resource;
         this.type = type;
+    }
+
+    void changeWeight(TextView tv, float weight) {
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
+                tv.getLayoutParams();
+        params.weight = 80f;
+        tv.setLayoutParams(params);
     }
 
     @NonNull
@@ -38,15 +46,34 @@ public class PartListAdapter extends ArrayAdapter<Participant> {
 
         TextView tvName = (TextView) convertView.findViewById(R.id.textView1);
         TextView tvProb = (TextView) convertView.findViewById(R.id.textView2);
-        if(type < 10)
+        TextView tvSkill = (TextView) convertView.findViewById(R.id.textView3);
+        if(type < 10) {
             tvProb.setVisibility(convertView.GONE);
+            tvSkill.setVisibility(convertView.GONE);
+        }
 
         tvName.setText(name);
-        if(type == 11)
-            tvProb.setText(Integer.toString(prob));
-        else if(type == 12)
-            tvProb.setText(Integer.toString(skill));
 
+        if(prob != -1) {
+            tvProb.setText(Integer.toString(prob));
+        } else {
+            tvProb.setText("—");
+        }
+
+        if(skill != -1)
+            tvSkill.setText(Integer.toString(skill));
+        else
+            tvSkill.setText("—");
+
+        if(type == 11) {
+            tvSkill.setVisibility(convertView.GONE);
+//            changeWeight(tvName, 33.3f);
+            changeWeight(tvProb, 33.3f);
+        } else if(type == 12) {
+            tvProb.setVisibility(convertView.GONE);
+//            changeWeight(tvName, 33.3f);
+            changeWeight(tvSkill, 33.3f);
+        }
         return convertView;
     }
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,23 +23,19 @@ public class AddParticipants extends Screen implements Serializable {
     ListView lView;
     private ArrayList<Participant> table;
     private PartListAdapter adapter;
+    private ParticipantDataBase db;
     private int type, randomnessParam, numberOfTeams;
 
     void updateElementFromDialog(int index, String prevName, int prevProb, int prevSkill) {
         final EditText writeName = (EditText) dialog.findViewById(R.id.writeName);
         final EditText writeProb = (EditText) dialog.findViewById(R.id.writeProb);
+        final EditText writeSkill = (EditText) dialog.findViewById(R.id.writeSkill);
         String name = prevName;
         int prob = prevProb;
         int skill = prevSkill;
         name = writeName.getText().toString();
-        String value;
-        value = writeProb.getText().toString();
-        if(type == 11) {
-            prob = Integer.parseInt(value);
-        }
-        else if(type == 12) {
-            skill = Integer.parseInt(value);
-        }
+        prob = Integer.parseInt(writeProb.getText().toString());
+        skill = Integer.parseInt(writeSkill.getText().toString());
         table.set(index, new Participant(name, prob, skill));
         adapter.notifyDataSetChanged();
     }
@@ -46,19 +43,17 @@ public class AddParticipants extends Screen implements Serializable {
     void addElementFromDialog(String prevName, int prevProb, int prevSkill) {
         final EditText writeName = (EditText) dialog.findViewById(R.id.writeName);
         final EditText writeProb = (EditText) dialog.findViewById(R.id.writeProb);
+        final EditText writeSkill = (EditText) dialog.findViewById(R.id.writeSkill);
         String name = prevName;
         int prob = prevProb;
         int skill = prevSkill;
         name = writeName.getText().toString();
-        String value;
-        value = writeProb.getText().toString();
-        if(type == 11) {
-            prob = Integer.parseInt(value);
-        }
-        else if(type == 12) {
-            skill = Integer.parseInt(value);
-        }
+        prob = Integer.parseInt(writeProb.getText().toString());
+        skill = Integer.parseInt(writeSkill.getText().toString());
         table.add(new Participant(name, prob, skill));
+        boolean inserted = db.insertData(name, prob, skill);
+        if(!inserted)
+            Toast.makeText(AddParticipants.this,"Data not Inserted",Toast.LENGTH_LONG).show();
         adapter.notifyDataSetChanged();
     }
 
@@ -67,7 +62,21 @@ public class AddParticipants extends Screen implements Serializable {
         adapter.notifyDataSetChanged();
     }
 
-    void actionAddParticipant() {
+    void hideEditTextFromDialog() {
+        final EditText writeProb = (EditText) dialog.findViewById(R.id.writeProb);
+        final EditText writeSkill = (EditText) dialog.findViewById(R.id.writeSkill);
+
+        if(type < 10) {
+            writeProb.setVisibility(View.GONE);
+            writeSkill.setVisibility(View.GONE);
+        } else if(type == 11) {
+            writeSkill.setVisibility(View.GONE);
+        } else if(type == 12) {
+            writeProb.setVisibility(View.GONE);
+        }
+    }
+
+    void addParticipantClick() {
         Button butAddPart = (Button)findViewById(R.id.butAddPart);
         butAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +84,8 @@ public class AddParticipants extends Screen implements Serializable {
             dialog = new Dialog(AddParticipants.this);
             dialog.setTitle("Save Your Name");
             dialog.setContentView(R.layout.dialog_template);
+
+            hideEditTextFromDialog();
 
             TextView message = (TextView) dialog.findViewById(R.id.message);
             Button addData = (Button) dialog.findViewById(R.id.butAdd);
@@ -93,8 +104,13 @@ public class AddParticipants extends Screen implements Serializable {
         });
     }
 
-    public void actionUpdateParticipant(final String oldName, final String oldProb, final String oldSkill, final int index){
+    String checkStringEmpty(String x) {
+        if(x == "-1")
+            return "";
+        return x;
+    }
 
+    public void actionUpdateParticipant(final String oldName, final String oldProb, final String oldSkill, final int index){
 
         dialog = new Dialog(AddParticipants.this);
 
@@ -107,16 +123,18 @@ public class AddParticipants extends Screen implements Serializable {
 
         final EditText writeName = (EditText)dialog.findViewById(R.id.writeName);
         final EditText writeProb = (EditText)dialog.findViewById(R.id.writeProb);
+        final EditText writeSkill = (EditText)dialog.findViewById(R.id.writeSkill);
 
-        writeName.setText(oldName);
-        writeProb.setText(oldProb);
+        hideEditTextFromDialog();
+        writeName.setText(checkStringEmpty(oldName));
+        writeProb.setText(checkStringEmpty(oldProb));
+        writeSkill.setText(checkStringEmpty(oldSkill));
 
         Button butRemove = (Button)dialog.findViewById(R.id.butRemove);
 
         butAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 updateElementFromDialog(index, oldName, Integer.parseInt(oldProb), Integer.parseInt(oldSkill));
                 dialog.dismiss();
             }
@@ -125,7 +143,6 @@ public class AddParticipants extends Screen implements Serializable {
         butRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 removeElementFromDialog(index);
                 dialog.dismiss();
             }
@@ -201,19 +218,26 @@ public class AddParticipants extends Screen implements Serializable {
         this.numberOfTeams = getIntVarFromLastActivity("numberOfTeams");
     }
 
+    void makeAttributions() {
+        db = new ParticipantDataBase(AddParticipants.this);
+        lView = (ListView)findViewById(R.id.listView);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_participant);
-        lView = (ListView)findViewById(R.id.listView);
+
+        makeAttributions();
+
         System.out.println("New");
 
         getFromLastActivity();
 
         System.out.println("type = " + type);
 
-        actionAddParticipant();
+        addParticipantClick();
         butDoDrawAction();
 
         Participant p1 = new Participant("Adalberto", 1, 1);

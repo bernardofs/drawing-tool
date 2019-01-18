@@ -18,11 +18,19 @@
         android:hint="Write The Name Here"
         android:id="@+id/writeName"
         android:layout_height="match_parent" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_margin="4dp"
         android:hint="Write The Probability Here"
         android:id="@+id/writeProb"
+        android:layout_height="match_parent" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_margin="4dp"
+        android:hint="Write The Skill Here"
+        android:id="@+id/writeSkill"
         android:layout_height="match_parent" />
 
     <LinearLayout

@@ -34,6 +34,16 @@ public class TelaInicial extends Screen {
         });
     }
 
+    void butSavedParticipantsClick() {
+        Button butSaved = (Button)findViewById(R.id.butSavedParticipants);
+        butSaved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeActivityAndKeep((Context)TelaInicial.this, ShowSavedParticipants.class);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,7 +51,7 @@ public class TelaInicial extends Screen {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_inicial);
 
-
+        butSavedParticipantsClick();
         butIndClick();
         butMultipleClick();
         

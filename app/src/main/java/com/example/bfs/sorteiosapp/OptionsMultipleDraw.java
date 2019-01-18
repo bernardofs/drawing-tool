@@ -24,7 +24,8 @@ public class OptionsMultipleDraw extends AppCompatActivity {
 
     void seekBarActions() {
 
-
+        tv.setText("Balanced");
+        sb.setProgress(10);
         sb.setMax(20);
 
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -36,6 +37,7 @@ public class OptionsMultipleDraw extends AppCompatActivity {
             }
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+
 
                 if(progress == 0) {
                     tv.setText("Completely Random");
@@ -84,6 +86,10 @@ public class OptionsMultipleDraw extends AppCompatActivity {
         });
     }
 
+    void numberTeamsEditTextActions() {
+        et.setText("1");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +98,8 @@ public class OptionsMultipleDraw extends AppCompatActivity {
         setVariablesInLayout();
 
         seekBarActions();
+
+        numberTeamsEditTextActions();
 
         setAdvanceButtonText();
 
