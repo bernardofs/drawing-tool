@@ -1,9 +1,12 @@
 package com.example.bfs.sorteiosapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -25,5 +28,62 @@ public class Screen extends AppCompatActivity {
         // this function returns the variable value stored from the last activity
         return getIntent().getIntExtra(name, -1);
     }
+    
+    ////////////////////////// Tests ////////////////////////////
+    
+    boolean isNonNegative(String x) {
+        if(x.charAt(0) != '-') {
+            return true;
+        } else {
+            createErrorDialog("Only non-negative numbers are allowed");
+            return false;
+        }
+    }
+    
+    boolean isNumber(String s) {
 
+        if(s.charAt(0) == '-' && s.length() == 1) {
+            createErrorDialog("Invalid number");
+            return false;
+        }
+
+        for(int i = (s.charAt(0) == '-' ? 1 : 0); i < s.length(); i++) {
+            if(s.charAt(i) < '0' || s.charAt(i) > '9') {
+                createErrorDialog("Invalid number");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    boolean isNumber(int x) {
+        return isNumber(Integer.toString(x));
+    }
+
+    boolean isEmpty(String x) {
+        if(x.length() == 0) {
+            createErrorDialog("Some required field is empty");
+            return true;
+        } else
+            return false;
+    }
+
+    void createErrorDialog(String message) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Error");
+        alert.setMessage(message);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alert.create().show();
+    }
+    
+    boolean checkRequiredNumberField(EditText et) {
+        String text = et.getText().toString();
+        return !isEmpty(text) && isNumber(text) && isNonNegative(text);
+    }
 }

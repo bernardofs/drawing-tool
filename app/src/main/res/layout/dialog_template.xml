@@ -13,11 +13,11 @@
         android:text="Type data" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_margin="4dp"
-        android:hint="Write The Name Here"
         android:id="@+id/writeName"
-        android:layout_height="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:hint="Write The Name Here" />
 
     <EditText
         android:layout_width="match_parent"
@@ -32,6 +32,12 @@
         android:hint="Write The Skill Here"
         android:id="@+id/writeSkill"
         android:layout_height="match_parent" />
+
+    <CheckBox
+        android:id="@+id/cbSaveData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Data" />
 
     <LinearLayout
         android:orientation="horizontal"
