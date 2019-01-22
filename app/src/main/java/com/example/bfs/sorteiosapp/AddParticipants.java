@@ -46,11 +46,13 @@ public class AddParticipants extends Screen implements Serializable {
                 return false;
             skill = Integer.parseInt(writeSkill.getText().toString());
         }
+
         if(saveData) {
             boolean inserted = db.updateData(oldId, name, prob, skill);
             if (!inserted)
                 Toast.makeText(AddParticipants.this, "Data not Inserted", Toast.LENGTH_LONG).show();
         }
+
         table.set(index, new Participant(name, prob, skill));
         adapter.notifyDataSetChanged();
         return true;
@@ -104,31 +106,68 @@ public class AddParticipants extends Screen implements Serializable {
         }
     }
 
+    void createDialogAddParticipant() {
+        dialog = new Dialog(AddParticipants.this);
+        dialog.setTitle("Save Your Name");
+        dialog.setContentView(R.layout.dialog_template);
+        setCheckBox(dialog);
+
+        hideEditTextFromDialog();
+
+        TextView message = (TextView) dialog.findViewById(R.id.message);
+        Button addData = (Button) dialog.findViewById(R.id.butAdd);
+        Button butRem = (Button) dialog.findViewById(R.id.butRemove);
+        butRem.setVisibility(View.GONE);
+
+        addData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(addElementFromDialog("", -1, -1))
+                    dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    void createDialogTypeOfParticipantToAdd() {
+        final Dialog d = new Dialog(AddParticipants.this);
+        d.setContentView(R.layout.dialog_type_of_participant_to_add);
+
+        Button butCreateNewPart = (Button) d.findViewById(R.id.butAddNew);
+        Button butAddSaved = (Button) d.findViewById(R.id.butAddSaved);
+        Button butDone = (Button) d.findViewById(R.id.butDone);
+
+        butCreateNewPart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialogAddParticipant();
+            }
+        });
+
+        butAddSaved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // To Add
+            }
+        });
+
+        butDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+
+        d.show();
+
+    }
+
     void addParticipantClick() {
         Button butAddPart = (Button)findViewById(R.id.butAddPart);
         butAddPart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            dialog = new Dialog(AddParticipants.this);
-            dialog.setTitle("Save Your Name");
-            dialog.setContentView(R.layout.dialog_template);
-            setCheckBox(dialog);
-
-            hideEditTextFromDialog();
-
-            TextView message = (TextView) dialog.findViewById(R.id.message);
-            Button addData = (Button) dialog.findViewById(R.id.butAdd);
-            Button butRem = (Button) dialog.findViewById(R.id.butRemove);
-            butRem.setVisibility(View.GONE);
-
-            addData.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(addElementFromDialog("", -1, -1))
-                        dialog.dismiss();
-                }
-            });
-            dialog.show();
+                createDialogTypeOfParticipantToAdd();
             }
         });
     }
@@ -282,9 +321,7 @@ public class AddParticipants extends Screen implements Serializable {
         makeAttributions();
 
         System.out.println("New");
-
         getFromLastActivity();
-
         System.out.println("type = " + type);
 
         addParticipantClick();
