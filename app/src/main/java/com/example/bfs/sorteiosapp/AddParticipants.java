@@ -1,6 +1,7 @@
 package com.example.bfs.sorteiosapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Dialog;
 import android.view.View;
@@ -20,6 +21,8 @@ import java.util.TreeSet;
 public class AddParticipants extends Screen implements Serializable {
 
     private TreeSet<Participant> people = new TreeSet<Participant>();
+    private TreeSet<Integer> idsSavedPart;
+    ArrayList<Participant> savedPart;
     private Dialog dialog;
     ListView lView;
     private ArrayList<Participant> table;
@@ -28,6 +31,20 @@ public class AddParticipants extends Screen implements Serializable {
     private CheckBox cbSaveData;
     private int type, randomnessParam, numberOfTeams;
     private boolean saveData;
+
+    boolean validForThisType(Participant p) {
+
+        if(type < 10)
+            return (p.getName().equals("") == false);
+
+        if(type == 11)
+            return (p.getName().equals("") == false && p.getProb() != -1);
+
+        if(type == 12)
+            return (p.getName().equals("") == false && p.getSkill() != -1);
+
+        return false;
+    }
 
     boolean updateElementFromDialog(int index, int oldId, String prevName, int prevProb, int prevSkill) {
         final EditText writeName = (EditText) dialog.findViewById(R.id.writeName);
@@ -51,6 +68,10 @@ public class AddParticipants extends Screen implements Serializable {
             boolean inserted = db.updateData(oldId, name, prob, skill);
             if (!inserted)
                 Toast.makeText(AddParticipants.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+        } else {
+            int id = table.get(index).getId();
+            if(idsSavedPart.contains(id))
+                idsSavedPart.remove(id);
         }
 
         table.set(index, new Participant(name, prob, skill));
@@ -76,18 +97,24 @@ public class AddParticipants extends Screen implements Serializable {
             skill = Integer.parseInt(writeSkill.getText().toString());
         }
         table.add(new Participant(name, prob, skill));
-        System.out.println("debug");
         if(saveData) {
-            System.out.println("debug2");
-            boolean inserted = db.insertData(name, prob, skill);
-            if (!inserted)
+            int id = db.insertData(name, prob, skill);
+            if (id == -1)
                 Toast.makeText(AddParticipants.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+            else {
+                idsSavedPart.add(id);
+            }
+
         }
         adapter.notifyDataSetChanged();
         return true;
     }
 
     void removeElementFromDialog(int idx) {
+        int id = table.get(idx).getId();
+        if(idsSavedPart.contains(id))
+            idsSavedPart.remove(id);
+
         table.remove(idx);
         adapter.notifyDataSetChanged();
     }
@@ -110,7 +137,7 @@ public class AddParticipants extends Screen implements Serializable {
         dialog = new Dialog(AddParticipants.this);
         dialog.setTitle("Save Your Name");
         dialog.setContentView(R.layout.dialog_template);
-        setCheckBox(dialog);
+        setCheckBox(dialog, false, -1);
 
         hideEditTextFromDialog();
 
@@ -127,6 +154,54 @@ public class AddParticipants extends Screen implements Serializable {
             }
         });
         dialog.show();
+    }
+
+    void createDialogAddSaved() {
+
+        final Dialog d = new Dialog(AddParticipants.this);
+        d.setContentView(R.layout.dialog_show_saved_participants);
+
+        ListView liView = (ListView) d.findViewById(R.id.listView);
+
+        savedPart = new ArrayList<Participant>();
+
+        Cursor ptr = db.getAllData();
+
+        String name;
+        int prob, skill, id;
+        while(ptr.moveToNext()) {
+            id = Integer.parseInt(ptr.getString(0));
+            if(idsSavedPart.contains(id) && id != -1)
+                continue;
+            name = ptr.getString(1);
+            prob = Integer.parseInt(ptr.getString(2));
+            skill = Integer.parseInt(ptr.getString(3));
+
+            Participant p = new Participant(id, name, prob, skill);
+
+            if(validForThisType(p))
+                savedPart.add(p);
+        }
+
+        if(savedPart.size() == 0) {
+            createErrorDialog("No Saved Participant is Valid");
+            return;
+        }
+
+        liView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                table.add(savedPart.get(position));
+                idsSavedPart.add(savedPart.get(position).getId());
+                adapter.notifyDataSetChanged();
+                d.dismiss();
+            }
+        });
+
+        PartListAdapter adapt = new PartListAdapter(this, R.layout.participants_list_view, savedPart, type);
+        liView.setAdapter(adapt);
+
+        d.show();
     }
 
     void createDialogTypeOfParticipantToAdd() {
@@ -147,7 +222,7 @@ public class AddParticipants extends Screen implements Serializable {
         butAddSaved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // To Add
+                createDialogAddSaved();
             }
         });
 
@@ -182,8 +257,15 @@ public class AddParticipants extends Screen implements Serializable {
         return x;
     }
 
-    void setCheckBox(Dialog d) {
-        CheckBox checkBox = dialog.findViewById(R.id.cbSaveData);
+    void setCheckBox(Dialog d, boolean update, int id) {
+
+        CheckBox checkBox = d.findViewById(R.id.cbSaveData);
+        if(update && id != -1) {
+            checkBox.setText("Update Saved Data");
+        } else {
+            checkBox.setText("Save Data");
+        }
+
         checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (((CheckBox) v).isChecked())
@@ -200,7 +282,7 @@ public class AddParticipants extends Screen implements Serializable {
 
         dialog.setContentView(R.layout.dialog_template);
         TextView txtMessage=(TextView)dialog.findViewById(R.id.message);
-        setCheckBox(dialog);
+        setCheckBox(dialog, true, oldId);
         txtMessage.setText("Update item");
 
         Button butAdd = (Button)dialog.findViewById(R.id.butAdd);
@@ -306,10 +388,15 @@ public class AddParticipants extends Screen implements Serializable {
     void makeAttributions() {
         db = new ParticipantDataBase(AddParticipants.this);
         lView = (ListView)findViewById(R.id.listView);
+        idsSavedPart = new TreeSet<Integer>();
     }
 
     void initVariables() {
         this.saveData = false;
+    }
+
+    void getAllValidSavedParticipants() {
+
     }
 
     @Override
@@ -319,10 +406,11 @@ public class AddParticipants extends Screen implements Serializable {
         setContentView(R.layout.activity_add_participant);
 
         makeAttributions();
+        initVariables();
 
-        System.out.println("New");
+//        System.out.println("New");
         getFromLastActivity();
-        System.out.println("type = " + type);
+//        System.out.println("type = " + type);
 
         addParticipantClick();
         butDoDrawAction();

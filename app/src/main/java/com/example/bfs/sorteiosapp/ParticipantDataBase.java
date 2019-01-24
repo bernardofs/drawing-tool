@@ -30,7 +30,7 @@ public class ParticipantDataBase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String name, int prob, int skill) {
+    public int insertData(String name, int prob, int skill) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,name);
@@ -38,9 +38,9 @@ public class ParticipantDataBase extends SQLiteOpenHelper {
         contentValues.put(COL_4,Integer.toString(skill));
         long result = db.insert(TABLE_NAME,null ,contentValues);
         if(result == -1)
-            return false;
+            return -1;
         else
-            return true;
+            return (int)result;
     }
 
     public Cursor getAllData() {

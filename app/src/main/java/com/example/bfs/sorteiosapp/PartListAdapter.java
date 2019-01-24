@@ -47,10 +47,6 @@ public class PartListAdapter extends ArrayAdapter<Participant> {
         TextView tvName = (TextView) convertView.findViewById(R.id.textView1);
         TextView tvProb = (TextView) convertView.findViewById(R.id.textView2);
         TextView tvSkill = (TextView) convertView.findViewById(R.id.textView3);
-        if(type < 10) {
-            tvProb.setVisibility(convertView.GONE);
-            tvSkill.setVisibility(convertView.GONE);
-        }
 
         tvName.setText(name);
 
@@ -60,12 +56,17 @@ public class PartListAdapter extends ArrayAdapter<Participant> {
             tvProb.setText("—");
         }
 
-        if(skill != -1)
+        if(skill != -1) {
             tvSkill.setText(Integer.toString(skill));
-        else
+        }
+        else {
             tvSkill.setText("—");
+        }
 
-        if(type == 11) {
+        if(type < 10) {
+            tvProb.setVisibility(convertView.GONE);
+            tvSkill.setVisibility(convertView.GONE);
+        } else if(type == 11) {
             tvSkill.setVisibility(convertView.GONE);
 //            changeWeight(tvName, 33.3f);
             changeWeight(tvProb, 33.3f);
