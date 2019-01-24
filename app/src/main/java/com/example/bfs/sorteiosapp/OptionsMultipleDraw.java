@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class OptionsMultipleDraw extends AppCompatActivity {
+public class OptionsMultipleDraw extends Screen {
 
     private SeekBar sb;
     private TextView tv;

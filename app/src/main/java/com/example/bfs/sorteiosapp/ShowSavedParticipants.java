@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ShowSavedParticipants extends AppCompatActivity {
+public class ShowSavedParticipants extends Screen {
 
     private ListView lView;
     private ArrayList<Participant> table;

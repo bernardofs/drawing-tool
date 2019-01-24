@@ -20,7 +20,6 @@ import java.util.TreeSet;
 
 public class AddParticipants extends Screen implements Serializable {
 
-    private TreeSet<Participant> people = new TreeSet<Participant>();
     private TreeSet<Integer> idsSavedPart;
     ArrayList<Participant> savedPart;
     private Dialog dialog;
@@ -247,10 +246,6 @@ public class AddParticipants extends Screen implements Serializable {
         });
     }
 
-    void CheckBoxSaveDataActions(Dialog dialog) {
-        dialog.setTitle("Save Data");
-    }
-
     String checkStringEmpty(String x) {
         if(x.equals("-1"))
             return "";
@@ -319,13 +314,25 @@ public class AddParticipants extends Screen implements Serializable {
 
     void loadTable() {
 
-       Iterator it = people.iterator();
+        table = new ArrayList<Participant>();
 
-       table.clear();
+        Participant p1 = new Participant("Adalberto", 1, 1);
+        Participant p2 = new Participant("Bernardo", 3, 3);
+        Participant p3 = new Participant("BFS", 4, 4);
+        Participant p4 = new Participant("Cintia", 15, 15);
+        Participant p5 = new Participant("Raimunda", 9, 9);
+        Participant p6 = new Participant("Florisvaldo", 1, 1);
+        Participant p7 = new Participant("Waleska", 2, 2);
+        Participant p8 = new Participant("Neide", 5, 5);
 
-        while(it.hasNext()) {
-            table.add((Participant)it.next());
-        }
+        table.add(p1);
+        table.add(p2);
+        table.add(p3);
+        table.add(p4);
+        table.add(p5);
+        table.add(p6);
+        table.add(p7);
+        table.add(p8);
 
         adapter = new PartListAdapter(this, R.layout.participants_list_view, table, type);
         lView.setAdapter(adapter);
@@ -395,10 +402,6 @@ public class AddParticipants extends Screen implements Serializable {
         this.saveData = false;
     }
 
-    void getAllValidSavedParticipants() {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -408,32 +411,10 @@ public class AddParticipants extends Screen implements Serializable {
         makeAttributions();
         initVariables();
 
-//        System.out.println("New");
         getFromLastActivity();
-//        System.out.println("type = " + type);
 
         addParticipantClick();
         butDoDrawAction();
-
-        Participant p1 = new Participant("Adalberto", 1, 1);
-        Participant p2 = new Participant("Bernardo", 3, 3);
-        Participant p3 = new Participant("BFS", 4, 4);
-        Participant p4 = new Participant("Cintia", 15, 15);
-        Participant p5 = new Participant("Raimunda", 9, 9);
-        Participant p6 = new Participant("Florisvaldo", 1, 1);
-        Participant p7 = new Participant("Waleska", 2, 2);
-        Participant p8 = new Participant("Neide", 5, 5);
-
-        table = new ArrayList<Participant>();
-
-        people.add(p1);
-        people.add(p2);
-        people.add(p3);
-        people.add(p4);
-        people.add(p5);
-        people.add(p6);
-        people.add(p7);
-        people.add(p8);
 
         loadTable();
 

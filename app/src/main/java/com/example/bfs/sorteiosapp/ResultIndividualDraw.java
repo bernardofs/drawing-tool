@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ResultIndividualDraw extends Screen implements Serializable {
+public class ResultIndividualDraw extends UniqueResult implements Serializable {
 
     private ArrayList<Participant> table;
     private int type;
@@ -75,9 +75,7 @@ public class ResultIndividualDraw extends Screen implements Serializable {
     }
 
     void displayDraw(int choose) {
-
-        TextView tv = (TextView)findViewById(R.id.textDisplayName);
-        tv.setText(table.get(choose).getName());
+        displayResult(table.get(choose).getName());
     }
 
     void getFromLastActivity() {
@@ -98,10 +96,10 @@ public class ResultIndividualDraw extends Screen implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        System.out.println("Result");
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_draw);
+//        setContentView(R.layout.activity_result_draw);
+
+        makeAttributions();
 
         getFromLastActivity();
         getTableFromAddPart();

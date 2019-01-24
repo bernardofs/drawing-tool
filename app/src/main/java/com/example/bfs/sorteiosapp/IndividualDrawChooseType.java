@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class IndividualDrawChooseType extends AppCompatActivity {
+public class IndividualDrawChooseType extends Screen {
 
     private Button butRandom, butProb;
 
