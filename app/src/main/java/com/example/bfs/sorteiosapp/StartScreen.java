@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class TelaInicial extends Screen {
+public class StartScreen extends Screen {
 
     void butIndClick() {
 
@@ -15,7 +15,7 @@ public class TelaInicial extends Screen {
         butInd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(TelaInicial.this, IndividualDrawChooseType.class);
+                Intent myIntent = new Intent(StartScreen.this, IndividualDrawChooseType.class);
                 myIntent.putExtra("type", 11);
                 startActivity(myIntent);
             }
@@ -29,7 +29,7 @@ public class TelaInicial extends Screen {
         butMult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeActivityAndKeep((Context)TelaInicial.this, OptionsMultipleDraw.class);
+                changeActivityAndKeep((Context) StartScreen.this, OptionsMultipleDraw.class);
             }
         });
     }
@@ -39,7 +39,17 @@ public class TelaInicial extends Screen {
         butSaved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeActivityAndKeep((Context)TelaInicial.this, ShowSavedParticipants.class);
+                changeActivityAndKeep((Context) StartScreen.this, ShowSavedParticipants.class);
+            }
+        });
+    }
+
+    void butDrawNumberClick() {
+        Button butDrawNumber = (Button)findViewById(R.id.buttonDrawNumber);
+        butDrawNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeActivityAndKeep(StartScreen.this, OptionsDrawANumber.class );
             }
         });
     }
@@ -47,10 +57,11 @@ public class TelaInicial extends Screen {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        System.out.println("TelaInicial");
+        System.out.println("StartScreen");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_inicial);
+        setContentView(R.layout.activity_start_screen);
 
+        butDrawNumberClick();
         butSavedParticipantsClick();
         butIndClick();
         butMultipleClick();

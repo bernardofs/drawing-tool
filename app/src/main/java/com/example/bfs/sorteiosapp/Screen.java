@@ -42,6 +42,11 @@ public class Screen extends AppCompatActivity {
     
     boolean isNumber(String s) {
 
+        if(numberDoNotOverflow(s) == false) {
+            createErrorDialog("Number is too big");
+            return false;
+        }
+
         if(s.charAt(0) == '-' && s.length() == 1) {
             createErrorDialog("Invalid number");
             return false;
@@ -68,6 +73,19 @@ public class Screen extends AppCompatActivity {
         } else
             return false;
     }
+
+    boolean numberDoNotOverflow(String x) {
+        if(x.charAt(0) == '-') {
+            x = x.substring(1);
+        }
+
+        if(x.equals("10000000") || x.length() < 8)
+            return true;
+
+        return false;
+    }
+
+    ////////////////////////// Tests ////////////////////////////
 
     void createErrorDialog(String message) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);

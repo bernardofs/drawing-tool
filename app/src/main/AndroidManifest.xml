@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UniqueResult"></activity>
+        <activity android:name=".ResultNumberDraw"></activity>
+        <activity android:name=".OptionsDrawANumber" />
+        <activity android:name=".UniqueResult" />
         <activity android:name=".ShowSavedParticipants" />
-        <activity android:name=".TelaInicial">
+        <activity android:name=".StartScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
