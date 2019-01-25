@@ -85,6 +85,11 @@ public class Screen extends AppCompatActivity {
         return false;
     }
 
+    boolean checkRequiredNumberField(EditText et) {
+        String text = et.getText().toString();
+        return !isEmpty(text) && isNumber(text) && isNonNegative(text);
+    }
+
     ////////////////////////// Tests ////////////////////////////
 
     void createErrorDialog(String message) {
@@ -98,10 +103,5 @@ public class Screen extends AppCompatActivity {
             }
         });
         alert.create().show();
-    }
-    
-    boolean checkRequiredNumberField(EditText et) {
-        String text = et.getText().toString();
-        return !isEmpty(text) && isNumber(text) && isNonNegative(text);
     }
 }

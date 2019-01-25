@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -105,6 +106,9 @@ public class ShowSavedParticipants extends Screen {
         Button butAdd = (Button)dialog.findViewById(R.id.butAdd);
         butAdd.setText("UPDATE");
 
+        CheckBox cb = (CheckBox) dialog.findViewById(R.id.cbSaveData);
+        cb.setVisibility(View.GONE);
+
         final EditText writeName = (EditText)dialog.findViewById(R.id.writeName);
         final EditText writeProb = (EditText)dialog.findViewById(R.id.writeProb);
         final EditText writeSkill = (EditText)dialog.findViewById(R.id.writeSkill);
@@ -147,6 +151,82 @@ public class ShowSavedParticipants extends Screen {
         });
     }
 
+    boolean addElementFromDialog() {
+        final EditText writeName = (EditText) dialog.findViewById(R.id.writeName);
+        final EditText writeProb = (EditText) dialog.findViewById(R.id.writeProb);
+        final EditText writeSkill = (EditText) dialog.findViewById(R.id.writeSkill);
+
+        String name;
+        name = writeName.getText().toString();
+        if(isEmpty(name)) {
+            return false;
+        }
+
+        int prob;
+        int skill;
+
+
+        String etProb = writeProb.getText().toString();
+        String etSkill = writeSkill.getText().toString();
+
+
+        if(etProb.length() == 0) {
+            prob = -1;
+        } else if  (!isNumber(etProb) || !isNonNegative(etProb)){
+            return false;
+        } else
+            prob = Integer.parseInt(etProb);
+
+        if(etSkill.length() == 0) {
+            skill = -1;
+        } else if (!isNumber(etSkill) || !isNonNegative(etSkill)) {
+            return false;
+        } else {
+            skill = Integer.parseInt(etSkill);
+        }
+
+
+        table.add(new Participant(name, prob, skill));
+        int id = db.insertData(name, prob, skill);
+        if (id == -1)
+            Toast.makeText(ShowSavedParticipants.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+        adapter.notifyDataSetChanged();
+        return true;
+    }
+
+    void createDialogAddParticipant() {
+        dialog = new Dialog(ShowSavedParticipants.this);
+        dialog.setTitle("Save Your Name");
+        dialog.setContentView(R.layout.dialog_template);
+
+        CheckBox cb = (CheckBox) dialog.findViewById(R.id.cbSaveData);
+        cb.setVisibility(View.GONE);
+
+        TextView message = (TextView) dialog.findViewById(R.id.message);
+        Button addData = (Button) dialog.findViewById(R.id.butAdd);
+        Button butRem = (Button) dialog.findViewById(R.id.butRemove);
+        butRem.setVisibility(View.GONE);
+
+        addData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(addElementFromDialog())
+                    dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    void addParticipantClick() {
+        Button butAddPart = (Button)findViewById(R.id.butAdd);
+        butAddPart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialogAddParticipant();
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -155,6 +235,7 @@ public class ShowSavedParticipants extends Screen {
 
         makeAttributions();
         updateElementListView();
+        addParticipantClick();
 
         loadTable();
     }
