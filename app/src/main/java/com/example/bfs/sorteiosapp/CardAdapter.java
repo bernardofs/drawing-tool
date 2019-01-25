@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -45,6 +47,25 @@ public class CardAdapter extends BaseAdapter {
         return i;
     }
 
+    public static void updateListViewHeight(ListView myListView) {
+        ListAdapter myListAdapter = myListView.getAdapter();
+        if (myListAdapter == null) {
+            return;
+        }
+        // get listview height
+        int totalHeight = 0;
+        int adapterCount = myListAdapter.getCount();
+        for (int size = 0; size < adapterCount; size++) {
+            View listItem = myListAdapter.getView(size, null, myListView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        // Change Height of ListView
+        ViewGroup.LayoutParams params = myListView.getLayoutParams();
+        params.height = (totalHeight + (myListView.getDividerHeight() * (adapterCount)));
+        myListView.setLayoutParams(params);
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -55,9 +76,12 @@ public class CardAdapter extends BaseAdapter {
 
         ArrayList<String> currentItem = (ArrayList<String>) getItem(position);
 
+        TextView tvTeamNumber= (TextView) listItem.findViewById(R.id.tvTeamNumber);
+        tvTeamNumber.setText("TEAM " + Integer.toString(position+1));
         ListView topic = (ListView) listItem.findViewById(R.id.listView);
         ListViewAdapter listNewAdapter = new ListViewAdapter(context,currentItem);
         topic.setAdapter(listNewAdapter);
+        updateListViewHeight(topic);
 
         return listItem;
     }

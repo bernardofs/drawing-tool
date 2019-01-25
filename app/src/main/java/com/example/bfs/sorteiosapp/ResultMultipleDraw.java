@@ -63,8 +63,6 @@ public class ResultMultipleDraw extends Screen {
         makeListView();
     }
 
-
-
     ArrayList<ArrayList<Participant>> generateBestRandomSolution(int nPeople, int nTeams, int randomnessParam, ArrayList<Participant> arr) {
 
         ArrayList<ArrayList<Participant>> sol = new ArrayList<ArrayList<Participant>>();
