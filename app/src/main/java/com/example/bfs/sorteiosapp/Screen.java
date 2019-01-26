@@ -12,12 +12,6 @@ import java.util.ArrayList;
 
 public class Screen extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_screen);
-    }
-
     // function
     void changeActivityAndKeep(Context packageContext, Class cls) {
         Intent it = new Intent(packageContext, cls);

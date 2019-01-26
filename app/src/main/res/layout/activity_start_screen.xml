@@ -7,61 +7,60 @@
     tools:context=".StartScreen">
 
     <ScrollView
-        android:layout_width="291dp"
-        android:layout_height="480dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="395dp"
-            android:layout_height="203dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="520dp">
 
             <Button
                 android:id="@+id/buttonDrawNumber"
-                android:layout_width="291dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Draw a number" />
 
-            <LinearLayout
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="vertical"></LinearLayout>
+                android:layout_height="80dp" />
 
             <Button
                 android:id="@+id/butInd"
-                android:layout_width="291dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Individual Draw" />
 
-            <LinearLayout
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="vertical"></LinearLayout>
+                android:layout_height="80dp" />
 
             <Button
                 android:id="@+id/butMult"
-                android:layout_width="291dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Team Draw" />
 
-            <LinearLayout
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="vertical"></LinearLayout>
+                android:layout_height="80dp" />
 
             <Button
                 android:id="@+id/butSavedParticipants"
-                android:layout_width="291dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Saved Participantes" />
 
