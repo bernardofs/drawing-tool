@@ -91,9 +91,14 @@ public class Screen extends AppCompatActivity {
         return false;
     }
 
-    boolean checkRequiredNumberField(EditText et) {
+    boolean checkETisValidNonNegativeNumber(EditText et) {
         String text = et.getText().toString();
         return !isEmpty(text) && isNumber(text) && isNonNegative(text);
+    }
+
+    boolean checkETisValidNumber(EditText et) {
+        String text = et.getText().toString();
+        return !isEmpty(text) && isNumber(text);
     }
 
     ////////////////////////// Tests ////////////////////////////

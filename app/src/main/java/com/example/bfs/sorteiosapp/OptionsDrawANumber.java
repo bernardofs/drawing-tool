@@ -18,6 +18,12 @@ public class OptionsDrawANumber extends Screen {
                 EditText etLower = (EditText)findViewById(R.id.etLower);
                 EditText etUpper = (EditText)findViewById(R.id.etUpper);
 
+                if(checkETisValidNumber(etLower) == false)
+                    return;
+
+                if(checkETisValidNumber(etUpper) == false)
+                    return;
+
                 int n1 = Integer.parseInt(etLower.getText().toString());
                 int n2 = Integer.parseInt(etUpper.getText().toString());
 

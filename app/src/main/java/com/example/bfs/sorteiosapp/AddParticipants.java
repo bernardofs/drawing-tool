@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.TreeSet;
 
 public class AddParticipants extends Screen implements Serializable {
@@ -54,11 +53,11 @@ public class AddParticipants extends Screen implements Serializable {
         int skill = prevSkill;
         name = writeName.getText().toString();
         if (type == 11) {
-            if(!checkRequiredNumberField(writeProb))
+            if(!checkETisValidNonNegativeNumber(writeProb))
                 return false;
             prob = Integer.parseInt(writeProb.getText().toString());
         } else if(type == 12) {
-            if(!checkRequiredNumberField(writeSkill))
+            if(!checkETisValidNonNegativeNumber(writeSkill))
                 return false;
             skill = Integer.parseInt(writeSkill.getText().toString());
         }
@@ -87,11 +86,11 @@ public class AddParticipants extends Screen implements Serializable {
         int skill = prevSkill;
         name = writeName.getText().toString();
         if (type == 11) {
-            if(!checkRequiredNumberField(writeProb))
+            if(!checkETisValidNonNegativeNumber(writeProb))
                 return false;
             prob = Integer.parseInt(writeProb.getText().toString());
         } else if(type == 12) {
-            if(!checkRequiredNumberField(writeSkill))
+            if(!checkETisValidNonNegativeNumber(writeSkill))
                 return false;
             skill = Integer.parseInt(writeSkill.getText().toString());
         }
@@ -354,6 +353,10 @@ public class AddParticipants extends Screen implements Serializable {
                         intent.putExtra("type", 2);
                     }
                     else if(type == 12) {
+                        if(numberOfTeams > table.size()) {
+                            createErrorDialog("Number of teams must be less or equal than number of participants");
+                            return;
+                        }
                         intent = new Intent(AddParticipants.this, ResultMultipleDraw.class);
                         intent.putExtra("type", 12);
                     }
