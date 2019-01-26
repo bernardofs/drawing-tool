@@ -16,6 +16,7 @@ public class OptionsMultipleDraw extends Screen {
     private TextView tv;
     private EditText et;
 
+    //
     void setVariablesInLayout() {
         sb = (SeekBar) findViewById(R.id.seekBar);
         tv = (TextView) findViewById(R.id.textView);
