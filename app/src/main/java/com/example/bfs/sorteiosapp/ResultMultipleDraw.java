@@ -3,6 +3,8 @@ package com.example.bfs.sorteiosapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -52,12 +54,23 @@ public class ResultMultipleDraw extends Screen {
         listView.setAdapter(cardsAdapter);
     }
 
+    void butDoneClick() {
+        Button butDone = (Button) findViewById(R.id.butDone);
+        butDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToInitialScreenAndCloseAllActivities();
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_multiple_draw);
 
         getFromLastActivity();
+        butDoneClick();
 
         buildTeams();
         makeListView();

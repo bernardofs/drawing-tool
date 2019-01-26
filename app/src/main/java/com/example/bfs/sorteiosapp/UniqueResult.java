@@ -2,6 +2,8 @@ package com.example.bfs.sorteiosapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class UniqueResult extends Screen {
@@ -11,6 +13,7 @@ public class UniqueResult extends Screen {
     void makeAttributions() {
         setContentView(R.layout.activity_unique_result);
         textDisplayName = (TextView) findViewById(R.id.textDisplayName);
+        butDoneClick();
     }
 
     void displayResult(String x) {
@@ -19,6 +22,16 @@ public class UniqueResult extends Screen {
 
     void displayResult(int x) {
         textDisplayName.setText(Integer.toString(x));
+    }
+
+    void butDoneClick() {
+        Button butDone = (Button) findViewById(R.id.butDone);
+        butDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToInitialScreenAndCloseAllActivities();
+            }
+        });
     }
 
     @Override

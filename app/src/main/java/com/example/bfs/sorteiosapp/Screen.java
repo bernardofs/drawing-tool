@@ -28,6 +28,12 @@ public class Screen extends AppCompatActivity {
         // this function returns the variable value stored from the last activity
         return getIntent().getIntExtra(name, -1);
     }
+
+    void backToInitialScreenAndCloseAllActivities() {
+        Intent intent = new Intent(getApplicationContext(), StartScreen.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
     
     ////////////////////////// Tests ////////////////////////////
     
