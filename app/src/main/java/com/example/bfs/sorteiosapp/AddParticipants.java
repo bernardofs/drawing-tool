@@ -399,6 +399,18 @@ public class AddParticipants extends Screen implements Serializable {
         db = new ParticipantDataBase(AddParticipants.this);
         lView = (ListView)findViewById(R.id.listView);
         idsSavedPart = new TreeSet<Integer>();
+
+        TextView tvName = (TextView) findViewById(R.id.tvName);
+        tvName.setText("Name");
+
+        TextView tvP_or_S = (TextView) findViewById(R.id.tvP_or_S);
+
+        if(type < 10) {
+            tvP_or_S.setVisibility(View.GONE);
+        } else if(type == 11)
+            tvP_or_S.setText("Probability");
+        else if(type == 12)
+            tvP_or_S.setText("Skill");
     }
 
     void initVariables() {
@@ -411,10 +423,11 @@ public class AddParticipants extends Screen implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_participant);
 
+        getFromLastActivity();
+
         makeAttributions();
         initVariables();
 
-        getFromLastActivity();
 
         addParticipantClick();
         butDoDrawAction();
