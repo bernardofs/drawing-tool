@@ -62,17 +62,27 @@ public class AddParticipants extends Screen implements Serializable {
             skill = Integer.parseInt(writeSkill.getText().toString());
         }
 
+        int id = oldId;
         if(saveData) {
-            boolean inserted = db.updateData(oldId, name, prob, skill);
-            if (!inserted)
-                Toast.makeText(AddParticipants.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+            if(idsSavedPart.contains(oldId) && oldId != -1) {
+                boolean inserted = db.updateData(oldId, name, prob, skill);
+                if (!inserted)
+                    Toast.makeText(AddParticipants.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+            } else {
+                id = db.insertData(name, prob, skill);
+                if (id == -1)
+                    Toast.makeText(AddParticipants.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+                else {
+                    idsSavedPart.add(id);
+                }
+            }
         } else {
-            int id = table.get(index).getId();
+            id = table.get(index).getId();
             if(idsSavedPart.contains(id))
                 idsSavedPart.remove(id);
         }
 
-        table.set(index, new Participant(name, prob, skill));
+        table.set(index, new Participant(id, name, prob, skill));
         adapter.notifyDataSetChanged();
         return true;
     }
