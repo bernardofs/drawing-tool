@@ -1,4 +1,4 @@
-package com.example.bfs.sorteiosapp;
+package com.example.bfs.DrawingTool;
 
 import java.io.Serializable;
 

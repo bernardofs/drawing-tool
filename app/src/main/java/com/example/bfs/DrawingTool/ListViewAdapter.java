@@ -1,4 +1,4 @@
-package com.example.bfs.sorteiosapp;
+package com.example.bfs.DrawingTool;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

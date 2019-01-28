@@ -1,4 +1,4 @@
-package com.example.bfs.sorteiosapp;
+package com.example.bfs.DrawingTool;
 
 import android.content.Intent;
 import android.os.Bundle;

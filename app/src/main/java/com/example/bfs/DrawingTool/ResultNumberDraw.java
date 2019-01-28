@@ -1,6 +1,5 @@
-package com.example.bfs.sorteiosapp;
+package com.example.bfs.DrawingTool;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import java.util.Random;

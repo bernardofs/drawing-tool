@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bfs.sorteiosapp">
+    package="com.example.bfs.DrawingTool">
 
     <application
         android:allowBackup="true"
@@ -9,24 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".ResultNumberDraw"></activity>
-        <activity android:name=".OptionsDrawANumber" />
-        <activity android:name=".UniqueResult" />
-        <activity android:name=".ShowSavedParticipants" />
-        <activity android:name=".StartScreen">
+        <activity android:name="com.example.bfs.DrawingTool.ResultNumberDraw"></activity>
+        <activity android:name="com.example.bfs.DrawingTool.OptionsDrawANumber" />
+        <activity android:name="com.example.bfs.DrawingTool.UniqueResult" />
+        <activity android:name="com.example.bfs.DrawingTool.ShowSavedParticipants" />
+        <activity android:name="com.example.bfs.DrawingTool.StartScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddParticipants" />
-        <activity android:name=".ResultIndividualDraw" />
-        <activity android:name=".MultipleTeams" />
-        <activity android:name=".Screen" />
-        <activity android:name=".ResultMultipleDraw" />
-        <activity android:name=".OptionsMultipleDraw" />
-        <activity android:name=".IndividualDrawChooseType" />
+        <activity android:name="com.example.bfs.DrawingTool.AddParticipants" />
+        <activity android:name="com.example.bfs.DrawingTool.ResultIndividualDraw" />
+        <activity android:name="com.example.bfs.DrawingTool.MultipleTeams" />
+        <activity android:name="com.example.bfs.DrawingTool.Screen" />
+        <activity android:name="com.example.bfs.DrawingTool.ResultMultipleDraw" />
+        <activity android:name="com.example.bfs.DrawingTool.OptionsMultipleDraw" />
+        <activity android:name="com.example.bfs.DrawingTool.IndividualDrawChooseType" />
     </application>
 
 </manifest>
