@@ -325,14 +325,14 @@ public class AddParticipants extends Screen implements Serializable {
 
         table = new ArrayList<Participant>();
 
-        Participant p1 = new Participant("Adalberto", 1, 1);
-        Participant p2 = new Participant("Bernardo", 3, 3);
-        Participant p3 = new Participant("BFS", 4, 4);
-        Participant p4 = new Participant("Cintia", 15, 15);
-        Participant p5 = new Participant("Raimunda", 9, 9);
-        Participant p6 = new Participant("Florisvaldo", 1, 1);
-        Participant p7 = new Participant("Waleska", 2, 2);
-        Participant p8 = new Participant("Neide", 5, 5);
+        Participant p1 = new Participant("Adolf", 1, 1);
+        Participant p2 = new Participant("Bernard", 3, 3);
+        Participant p3 = new Participant("John", 4, 4);
+        Participant p4 = new Participant("Mary", 15, 15);
+        Participant p5 = new Participant("Aaron", 9, 9);
+        Participant p6 = new Participant("Robert", 1, 1);
+        Participant p7 = new Participant("Simone", 2, 2);
+        Participant p8 = new Participant("Maggie", 5, 5);
 
         table.add(p1);
         table.add(p2);
@@ -353,6 +353,15 @@ public class AddParticipants extends Screen implements Serializable {
         butDraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(table.size() == 0) {
+                    createErrorDialog("You must add at least one participant");
+                    return;
+                } else if(table.size() > 100) {
+                    createErrorDialog("Maximum number of participants is 100");
+                    return;
+                }
+
                 Intent intent = new Intent();
                 if(type == 1 || type == 11) {
                     intent = new Intent(AddParticipants.this, ResultIndividualDraw.class);

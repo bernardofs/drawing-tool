@@ -9,24 +9,48 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.example.bfs.DrawingTool.ResultNumberDraw"></activity>
-        <activity android:name="com.example.bfs.DrawingTool.OptionsDrawANumber" />
-        <activity android:name="com.example.bfs.DrawingTool.UniqueResult" />
-        <activity android:name="com.example.bfs.DrawingTool.ShowSavedParticipants" />
-        <activity android:name="com.example.bfs.DrawingTool.StartScreen">
+        <activity android:name="com.example.bfs.DrawingTool.ResultNumberDraw"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.example.bfs.DrawingTool.OptionsDrawANumber"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.UniqueResult"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.ShowSavedParticipants"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.StartScreen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.bfs.DrawingTool.AddParticipants" />
-        <activity android:name="com.example.bfs.DrawingTool.ResultIndividualDraw" />
-        <activity android:name="com.example.bfs.DrawingTool.MultipleTeams" />
-        <activity android:name="com.example.bfs.DrawingTool.Screen" />
-        <activity android:name="com.example.bfs.DrawingTool.ResultMultipleDraw" />
-        <activity android:name="com.example.bfs.DrawingTool.OptionsMultipleDraw" />
-        <activity android:name="com.example.bfs.DrawingTool.IndividualDrawChooseType" />
+        <activity android:name="com.example.bfs.DrawingTool.AddParticipants"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.ResultIndividualDraw"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.MultipleTeams"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.Screen"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.ResultMultipleDraw"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.OptionsMultipleDraw"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.example.bfs.DrawingTool.IndividualDrawChooseType"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
