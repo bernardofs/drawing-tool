@@ -325,23 +325,23 @@ public class AddParticipants extends Screen implements Serializable {
 
         table = new ArrayList<Participant>();
 
-        Participant p1 = new Participant("Adolf", 1, 1);
-        Participant p2 = new Participant("Bernard", 3, 3);
-        Participant p3 = new Participant("John", 4, 4);
-        Participant p4 = new Participant("Mary", 15, 15);
-        Participant p5 = new Participant("Aaron", 9, 9);
-        Participant p6 = new Participant("Robert", 1, 1);
-        Participant p7 = new Participant("Simone", 2, 2);
-        Participant p8 = new Participant("Maggie", 5, 5);
-
-        table.add(p1);
-        table.add(p2);
-        table.add(p3);
-        table.add(p4);
-        table.add(p5);
-        table.add(p6);
-        table.add(p7);
-        table.add(p8);
+//        Participant p1 = new Participant("Adolf", 1, 1);
+//        Participant p2 = new Participant("Bernard", 3, 3);
+//        Participant p3 = new Participant("John", 4, 4);
+//        Participant p4 = new Participant("Mary", 15, 15);
+//        Participant p5 = new Participant("Aaron", 9, 9);
+//        Participant p6 = new Participant("Robert", 1, 1);
+//        Participant p7 = new Participant("Simone", 2, 2);
+//        Participant p8 = new Participant("Maggie", 5, 5);
+//
+//        table.add(p1);
+//        table.add(p2);
+//        table.add(p3);
+//        table.add(p4);
+//        table.add(p5);
+//        table.add(p6);
+//        table.add(p7);
+//        table.add(p8);
 
         adapter = new PartListAdapter(this, R.layout.participants_list_view, table, type);
         lView.setAdapter(adapter);
