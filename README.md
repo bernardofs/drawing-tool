@@ -1,3 +1,6 @@
+<p align="center"><img src="app/src/main/ic_launcher-web.png" alt="Drawing Tool" height="200px"></p>
+
+
 # Drawing Tool
 Android Application to execute different types of draws implemented on Android Studio in Java Programming language. The application offers the following kinds of draws.
 * Draw a number
