@@ -7,6 +7,8 @@ Android Application to execute different types of draws implemented on Android S
 * Draw a participant
 * Draw teams
 
+**Download APK** -> [DrawingTool](https://github.com/bfs07/DrawingTool/blob/master/DrawingTool.apk)
+
 ## Draw a number
 
 The user chooses some range of numbers, and the app draws a number randomly in this interval.
